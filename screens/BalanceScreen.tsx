@@ -2,9 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import { useAppSelector } from "../store/store";
 
 export default function BalanceScreen() {
-  const balance = useAppSelector((state) => state.balance);
+  const balance = useAppSelector(
+    (state) => state.balance.balance
+  );
   const transactions = useAppSelector(
-    (state) => state.transactions
+    (state) => state.balance.transactions
   );
 
   return (

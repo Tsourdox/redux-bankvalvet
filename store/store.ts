@@ -3,10 +3,19 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
-import { legacy_createStore as createStore } from "redux";
-import balanceReducer from "./reducer";
+import {
+  combineReducers,
+  legacy_createStore as createStore,
+} from "redux";
+import balanceReducer from "./balance/balanceReducer";
+import userReducer from "./user/userReducer";
 
-export const store = createStore(balanceReducer);
+const reducer = combineReducers({
+  balance: balanceReducer,
+  user: userReducer,
+});
+
+export const store = createStore(reducer);
 
 // ----- TYPESCRIPT -----
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -1,33 +1,10 @@
-// --- ACTIONS ---
-interface DepositAction {
-  type: "DEPOSIT";
-  payload: number;
-}
+import { BalanceAction } from "./balanceActions";
+import { BalanceState, initialState } from "./balanceState";
 
-interface WithdrawAction {
-  type: "WITHDRAW";
-  payload: number;
-}
+type KnownAction = BalanceAction;
 
-// Alla actions som den här reducern känner till.
-type KnownAction = DepositAction | WithdrawAction;
-// --- ACTIONS ---
-
-// --- STATE ---
-interface State {
-  balance: number;
-  transactions: number[];
-}
-
-const initialState: State = {
-  balance: 0,
-  transactions: [],
-};
-// --- STATE ---
-
-// --- REDUCER ---
 export default function balanceReducer(
-  state: State = initialState,
+  state: BalanceState = initialState,
   action: KnownAction
 ) {
   switch (action.type) {
@@ -39,7 +16,7 @@ export default function balanceReducer(
           ...state.transactions,
           action.payload,
         ],
-      } satisfies State;
+      } satisfies BalanceState;
     }
     case "WITHDRAW": {
       return {
@@ -49,7 +26,7 @@ export default function balanceReducer(
           ...state.transactions,
           -action.payload,
         ],
-      } satisfies State;
+      } satisfies BalanceState;
     }
     default: {
       action satisfies never;
@@ -57,4 +34,3 @@ export default function balanceReducer(
     }
   }
 }
-// --- REDUCER ---
