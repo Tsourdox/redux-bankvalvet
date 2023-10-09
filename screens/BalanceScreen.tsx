@@ -3,10 +3,18 @@ import { useAppSelector } from "../store/store";
 
 export default function BalanceScreen() {
   const balance = useAppSelector((state) => state.balance);
+  const transactions = useAppSelector(
+    (state) => state.transactions
+  );
 
   return (
     <View style={styles.container}>
       <Text>Balance: {balance} kr</Text>
+
+      <Text>Transactions:</Text>
+      {transactions.map((transaction, index) => (
+        <Text key={index}>{transaction} kr</Text>
+      ))}
     </View>
   );
 }

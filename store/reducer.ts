@@ -16,10 +16,12 @@ type KnownAction = DepositAction | WithdrawAction;
 // --- STATE ---
 interface State {
   balance: number;
+  transactions: number[];
 }
 
 const initialState: State = {
-  balance: 100,
+  balance: 0,
+  transactions: [],
 };
 // --- STATE ---
 
@@ -33,13 +35,21 @@ export default function balanceReducer(
       return {
         ...state,
         balance: state.balance + action.payload,
-      };
+        transactions: [
+          ...state.transactions,
+          action.payload,
+        ],
+      } satisfies State;
     }
     case "WITHDRAW": {
       return {
         ...state,
         balance: state.balance - action.payload,
-      };
+        transactions: [
+          ...state.transactions,
+          -action.payload,
+        ],
+      } satisfies State;
     }
     default: {
       action satisfies never;
