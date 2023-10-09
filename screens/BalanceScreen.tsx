@@ -6,7 +6,7 @@ export default function BalanceScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>Balance: {balance}</Text>
+      <Text>Balance: {balance} kr</Text>
     </View>
   );
 }
