@@ -4,10 +4,11 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
+import balanceReducer from "./balanceSlice";
 
 const store = configureStore({
   reducer: {
-    // balance: balanceReducer,
+    balance: balanceReducer,
     // user: userReducer
   },
 });
