@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { deposit } from "../store/balanceSlice";
 import { useAppDispatch } from "../store/store";
 
 export default function DepositScreen() {
@@ -23,9 +24,7 @@ export default function DepositScreen() {
       />
       <Button
         title="Deposit"
-        onPress={() =>
-          dispatch({ type: "DEPOSIT", payload: amount })
-        }
+        onPress={() => dispatch(deposit(amount))}
       />
     </View>
   );

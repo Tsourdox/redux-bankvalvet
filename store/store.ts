@@ -7,7 +7,7 @@ import {
 import balanceReducer from "./balanceSlice";
 import { userReducer } from "./userSlice";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     balance: balanceReducer,
     user: userReducer,

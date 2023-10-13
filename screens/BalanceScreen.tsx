@@ -10,9 +10,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../store/store";
+import { setSavingsGoal } from "../store/userSlice";
 
 export default function BalanceScreen() {
-  const [savingsGoal, setSavingsGoal] = useState(0);
+  const [goal, setGoal] = useState(0);
   const dispatch = useAppDispatch();
 
   const balance = useAppSelector(
@@ -43,19 +44,12 @@ export default function BalanceScreen() {
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        value={String(savingsGoal)}
-        onChangeText={(value) =>
-          setSavingsGoal(Number(value))
-        }
+        value={String(goal)}
+        onChangeText={(value) => setGoal(Number(value))}
       />
       <Button
         title="Set new goal"
-        onPress={() =>
-          dispatch({
-            type: "SET_SAVINGS_GOAL",
-            payload: savingsGoal,
-          })
-        }
+        onPress={() => dispatch(setSavingsGoal(goal))}
       />
 
       <Text>Transactions:</Text>

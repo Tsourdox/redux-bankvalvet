@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { withdraw } from "../store/balanceSlice";
 import { useAppDispatch } from "../store/store";
 
 export default function WithdrawScreen() {
@@ -23,9 +24,7 @@ export default function WithdrawScreen() {
       />
       <Button
         title="Withdraw"
-        onPress={() =>
-          dispatch({ type: "WITHDRAW", payload: amount })
-        }
+        onPress={() => dispatch(withdraw(amount))}
       />
     </View>
   );
