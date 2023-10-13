@@ -10,9 +10,13 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../store/store";
-import { setSavingsGoal } from "../store/userSlice";
+import {
+  setName,
+  setSavingsGoal,
+} from "../store/userSlice";
 
 export default function BalanceScreen() {
+  const [name, setNameInternal] = useState("");
   const [goal, setGoal] = useState(0);
   const dispatch = useAppDispatch();
 
@@ -32,6 +36,10 @@ export default function BalanceScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome: {user.name}</Text>
       <Text style={styles.subTitle}>
+        It is {!user.isNameDay && "not"} your name day
+        today!
+      </Text>
+      <Text style={styles.subTitle}>
         Your goal is set to: {user.savingsGoal} kr
       </Text>
       <Text style={styles.subTitle}>
@@ -40,6 +48,16 @@ export default function BalanceScreen() {
           : `You have: ${leftToGoal} kr to reach your goal`}
       </Text>
       <Text>Balance: {balance} kr</Text>
+
+      <TextInput
+        style={styles.input}
+        value={name}
+        onChangeText={setNameInternal}
+      />
+      <Button
+        title="Set Name"
+        onPress={() => dispatch(setName(name))}
+      />
 
       <TextInput
         style={styles.input}
