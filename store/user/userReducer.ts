@@ -8,14 +8,20 @@ export default function userReducer(
   action: KnownAction
 ) {
   switch (action.type) {
-    case "SET_USERNAME": {
+    case "SET_NAME": {
       return {
         ...state,
-        username: action.payload,
+        name: action.payload,
       } satisfies UserState;
     }
+    case "SET_SAVINGS_GOAL": {
+      return {
+        ...state,
+        savingsGoal: action.payload,
+      };
+    }
     default: {
-      action.type satisfies never;
+      action satisfies never;
       return state;
     }
   }

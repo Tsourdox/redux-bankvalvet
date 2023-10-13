@@ -1,7 +1,9 @@
 export interface UserState {
-  username: string;
+  name: string;
+  savingsGoal: number;
 }
 
 export const initialState: UserState = {
-  username: "",
+  name: "My",
+  savingsGoal: 5000,
 };
