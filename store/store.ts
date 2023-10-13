@@ -5,11 +5,12 @@ import {
   useSelector,
 } from "react-redux";
 import balanceReducer from "./balanceSlice";
+import { userReducer } from "./userSlice";
 
 const store = configureStore({
   reducer: {
     balance: balanceReducer,
-    // user: userReducer
+    user: userReducer,
   },
 });
 
