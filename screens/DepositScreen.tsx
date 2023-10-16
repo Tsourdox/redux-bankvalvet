@@ -1,3 +1,4 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import {
   Button,
@@ -6,6 +7,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { db } from "../firebaseConfig";
 import { deposit } from "../store/balanceSlice";
 import { useAppDispatch } from "../store/store";
 
@@ -24,7 +26,13 @@ export default function DepositScreen() {
       />
       <Button
         title="Deposit"
-        onPress={() => dispatch(deposit(amount))}
+        onPress={async () => {
+          // Test case för hur vi kan spara data i firebase
+          const balanceRef = collection(db, "balance");
+          await addDoc(balanceRef, { amount });
+
+          dispatch(deposit(amount));
+        }}
       />
     </View>
   );
