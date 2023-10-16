@@ -2,12 +2,13 @@ import {
   PayloadAction,
   createSlice,
 } from "@reduxjs/toolkit";
-import { doc, setDoc } from "firebase/firestore";
-import { getApiBalance } from "../api/balance";
-import { db } from "../firebaseConfig";
+import {
+  getApiBalance,
+  updateApiBalance,
+} from "../api/balance";
 import { createAppAsyncThunk } from "./utils";
 
-interface BalanceState {
+export interface BalanceState {
   id: string;
   balance: number;
   transactions: number[];
@@ -47,16 +48,14 @@ export const deposit = createAppAsyncThunk<number, number>(
   async (payload, thunkApi) => {
     const state = thunkApi.getState();
 
-    const balanceRef = doc(db, "balance", state.balance.id);
-
-    await setDoc(balanceRef, {
+    await updateApiBalance({
       id: state.balance.id,
       balance: state.balance.balance + payload,
       transactions: [
         ...state.balance.transactions,
         payload,
       ],
-    } satisfies BalanceState);
+    });
 
     return payload;
   }
@@ -65,8 +64,7 @@ export const deposit = createAppAsyncThunk<number, number>(
 export const getBalance = createAppAsyncThunk<BalanceState>(
   "balance/get",
   async () => {
-    const doc = await getApiBalance();
-    return doc as BalanceState;
+    return await getApiBalance();
   }
 );
 
