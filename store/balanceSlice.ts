@@ -3,6 +3,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { doc, setDoc } from "firebase/firestore";
+import { getApiBalance } from "../api/balance";
 import { db } from "../firebaseConfig";
 import { createAppAsyncThunk } from "./utils";
 
@@ -32,6 +33,10 @@ const balanceSlice = createSlice({
       state.balance += action.payload;
       state.transactions.push(action.payload);
     });
+    builder.addCase(
+      getBalance.fulfilled,
+      (_state, action) => action.payload
+    );
   },
 });
 
@@ -54,6 +59,14 @@ export const deposit = createAppAsyncThunk<number, number>(
     } satisfies BalanceState);
 
     return payload;
+  }
+);
+
+export const getBalance = createAppAsyncThunk<BalanceState>(
+  "balance/get",
+  async () => {
+    const doc = await getApiBalance();
+    return doc as BalanceState;
   }
 );
 

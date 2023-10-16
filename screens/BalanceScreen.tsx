@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 import {
   Button,
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { getBalance } from "../store/balanceSlice";
 import {
   useAppDispatch,
   useAppSelector,
@@ -31,6 +33,12 @@ export default function BalanceScreen() {
   const user = useAppSelector((state) => state.user);
 
   const leftToGoal = user.savingsGoal - balance;
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getBalance());
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
